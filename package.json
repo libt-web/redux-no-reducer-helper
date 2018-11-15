@@ -1,6 +1,6 @@
 {
   "name": "redux-no-reducer-helper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a helper to write redux action and reducer faster",
   "main": "index.js",
   "scripts": {
