@@ -1,4 +1,4 @@
-## Redux Helper
+## Redux no reducer Helper
 
 ### 特点
 
@@ -11,11 +11,11 @@
 1 安装
 
 ```
-    npm install ec-redux-helper
+    npm install redux-no-reducer-helper
 ```
 2 创建reducer
 ```javascript
-    import { createReducer } from 'ec-redux-helper'; // 引入创建reducer的方法
+    import { createReducer } from 'redux-no-reducer-helper'; // 引入创建reducer的方法
     export default createReducer('action-type',{ // action-type 为处理此reducer的action的统一标识
         count:0, // 初始化store数据
     });
@@ -57,7 +57,7 @@
 5 在react组件引用 store，action
 ```javascript
     import { connect } from 'react-redux'; 
-    import { bindActionCreators } from 'ec-redux-helper'; 
+    import { bindActionCreators } from 'redux-no-reducer-helper'; 
     import * as actions from '../action.js';
 
     @connect(
