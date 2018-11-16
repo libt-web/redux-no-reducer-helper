@@ -108,4 +108,5 @@ action方法将会把this绑定到一个帮助器上（也是action运行期间�
     this.commit(actionType)
 ```
 
-[GitHub](https://github.com/TWOWhite/redux-no-reducer-helper)
+### 示例代码
+[GitHub](https://github.com/TWOWhite/redux-no-reducer-helper-example)
