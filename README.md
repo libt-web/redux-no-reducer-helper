@@ -106,6 +106,35 @@ action方法将会把this绑定到一个帮助器上（也是action运行期间�
         填写时将暂存区数据提交到谈些的reducer处理
      */
     this.commit(actionType)
+
+    /**
+     * obj为形如
+     * {
+     *  'path':value,
+     *  'path1':value1,
+     *  'path2':func1,
+     * }的对象
+     * 批量向暂存区的path位置放置value或放置update函数，path,value,func的约定参照set方法和update方法
+    */
+    this.inject(obj)
+
+    /**
+     * 调用func函数，并将args传递给func函数使用
+     * func函数包含参数({set,update,inject},...args)
+     * 前一个参数为提供给func使用的set,update,inject方法,
+     * 之后的参数为透传的参数组成的数组
+     * 
+     * func函数中set，update,inject使用的暂存区和调用fork的anction的暂存区是同一个
+     * 使用时注意pathroot 上下文
+    */
+    this.fork(func,...args)
+
+    /**
+     * 启动一个其他的action 函数，并将args附加参数传递给新action使用
+     * action为函数，并绑定this到新暂存区，参数为透传的args
+    */
+    this.call(action,...args)
+
 ```
 
 ### 示例代码

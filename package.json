@@ -1,18 +1,19 @@
 {
   "name": "redux-no-reducer-helper",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "a helper to write redux action and reducer faster",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c"
   },
   "author": "LiBoTao",
   "license": "MIT",
   "repository": "https://github.com/TWOWhite/redux-no-reducer-helper",
   "devDependencies": {
     "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "rollup-plugin-babel": "^3.0.7",
-    "babel-core": "^6.26.3"
+    "rollup-plugin-babel": "^3.0.7"
   }
 }

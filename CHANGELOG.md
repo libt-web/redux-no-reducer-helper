@@ -30,3 +30,18 @@ All notable changes to this project will be documented in this file. See [standa
 
 - 修改README.md文件
 - 新增CHANGELOG.md文件
+
+
+## 1.0.2-->1.0.5
+- 修改README.md文件
+
+
+##1.0.6
+- 新增action api：inject
+- 新增action api：fork
+- action api set,update,inject,setRoot,clear 可以链式调用
+
+##1.0.7
+- 修复fork中操作函数可获取commit的问题
+- 修复fork报错问题
+- fork增加到链式调用中

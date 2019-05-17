@@ -4,6 +4,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function getType(obj) {
@@ -93,36 +95,97 @@ var ImCursor = function () {
                 return;
             }
             this.rootPath = getPath(pathStr);
+            return this;
         }
     }, {
         key: 'set',
         value: function set(pathStr, value) {
             this.actions.setNewNode(this.rootPath.concat(getPath(pathStr)), value);
+            return this;
+        }
+    }, {
+        key: 'inject',
+        value: function inject(obj) {
+            var _this = this;
+
+            var keys = Object.keys(obj);
+            keys.forEach(function (key) {
+                var item = obj[key];
+                if (typeof item == 'function') {
+                    _this.update(key, item);
+                } else {
+                    _this.set(key, item);
+                }
+            });
+            return this;
         }
     }, {
         key: 'update',
         value: function update(pathStr, value) {
             this.actions.setNewNode(this.rootPath.concat(getPath(pathStr)), value);
+            return this;
         }
     }, {
         key: 'clear',
         value: function clear() {
             this.actions.clear();
+            return this;
         }
     }, {
-        key: 'call',
-        value: function call() {
-            var _this = this;
+        key: 'fork',
+        value: function fork() {
+            var _this2 = this;
 
             for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
                 args[_key] = arguments[_key];
             }
 
             if (args.length < 1 && getType(args[0]) != 'function') {
+                throw new Error('the frist argument must be function in fork method');
+            }
+            var ref = {
+                set: function set() {
+                    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                        args[_key2] = arguments[_key2];
+                    }
+
+                    _this2.set.apply(_this2, args);
+                    return ref;
+                },
+                update: function update() {
+                    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+                        args[_key3] = arguments[_key3];
+                    }
+
+                    _this2.update.apply(_this2, args);
+                    return ref;
+                },
+                inject: function inject() {
+                    for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+                        args[_key4] = arguments[_key4];
+                    }
+
+                    _this2.inject.apply(_this2, args);
+                    return ref;
+                }
+            };
+            args[0].apply(this, [ref].concat(_toConsumableArray(args.slice(1, args.length))));
+            return this;
+        }
+    }, {
+        key: 'call',
+        value: function call() {
+            var _this3 = this;
+
+            for (var _len5 = arguments.length, args = Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+                args[_key5] = arguments[_key5];
+            }
+
+            if (args.length < 1 && getType(args[0]) != 'function') {
                 throw new Error('the frist argument must be function in call method');
             }
             this.dispatch(function (thunkDispatch, thunkGetstate) {
-                args[0].apply(new ImCursor(thunkDispatch, thunkGetstate, _this.actionType), args.slice(1, args.length));
+                args[0].apply(new ImCursor(thunkDispatch, thunkGetstate, _this3.actionType), args.slice(1, args.length));
             });
         }
     }, {
@@ -162,8 +225,8 @@ function bindActionCreators(actions, dispatch, actionType) {
     var newActions = {};
     Object.keys(actions).forEach(function (key) {
         newActions[key] = function () {
-            for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-                args[_key2] = arguments[_key2];
+            for (var _len6 = arguments.length, args = Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+                args[_key6] = arguments[_key6];
             }
 
             dispatch(function (thunkDispatch, getstate) {
@@ -174,5 +237,5 @@ function bindActionCreators(actions, dispatch, actionType) {
     return newActions;
 }
 
-exports.createReducer = createReducer;
 exports.bindActionCreators = bindActionCreators;
+exports.createReducer = createReducer;
