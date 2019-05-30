@@ -45,3 +45,10 @@ All notable changes to this project will be documented in this file. See [standa
 - 修复fork中操作函数可获取commit的问题
 - 修复fork报错问题
 - fork增加到链式调用中
+
+##1.0.8
+- 修复fork中操作函数this指向问题
+
+
+##1.0.9
+- 修复package.json 依赖问题
